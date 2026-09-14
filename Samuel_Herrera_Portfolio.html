@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Herrera — Chief Engineer, Washington University in St. Louis Aerospace Design Team</title>
+<meta name="description" content="Portfolio of Samuel Herrera, aerospace engineering master's student and Chief Engineer of the Washington University in St. Louis' Design, Build, Fly team, leading structural, propulsion and systems integration work on student-built flight vehicles.">
+
+<!--
+  ============================================================================
+  AEROSPACE CHIEF ENGINEER PORTFOLIO
+  ----------------------------------------------------------------------------
+  Design concept: a technical drafting sheet / mission-console aesthetic.
+  Everything visual is borrowed from things engineers actually use — blueprint
+  grids, drawing-sheet registration marks, mission-elapsed-time clocks,
+  go/no-go readiness polls, program "dossier" sheets and an altitude-style
+  career rail — rather than generic SaaS card/dashboard chrome.
+
+  HOW TO CUSTOMIZE
+  ----------------------------------------------------------------------------
+  1. Search this file for square-bracket placeholders like [Your Name] and
+     [Team / Project Name] and replace them with your real information.
+  2. This version is written for an aerospace master's student who is chief
+     engineer of a student design team (rocketry, UAV, CubeSat, Formula-SAE
+     style competition, etc.) rather than a paid full-time role. Project
+     details in the "PROJECTS" section are examples only — replace with your
+     actual competition entries, capstone project, or research work.
+     NOTE: if any of your real project details are export-controlled
+     (ITAR/EAR) or covered by a university/sponsor NDA, keep descriptions to
+     unclassified, publicly-releasable information only.
+  3. Update the JOURNEY_START_DATE constant in the script at the bottom to
+     set your real "time on team" clock start date (e.g. when you joined
+     the design team or started your degree).
+  4. Replace the placeholder photo block in the "PROFILE" section with an
+     <img> tag pointing at your headshot.
+  ============================================================================
+-->
+
+<style>
+  /* ======================================================================
+     1. DESIGN TOKENS
+     A small, named palette and type system. Keeping these as variables
+     means every section pulls from the same source of truth.
+  ====================================================================== */
+  :root {
+    /* Color: deep space-navy base, not pure black — a warmer, less
+       "generated" dark than #0B0B0B/#111. One signal accent only. */
+    --bg:            #0A1420;
+    --bg-panel:      #101F33;
+    --bg-panel-2:    #0D1B2A;
+    --line:          #223349;
+    --line-strong:   #34506f;
+    --text:          #E7EDF3;
+    --text-dim:      #93A6BA;
+    --text-faint:    #5C7086;
+    --accent:        #F2A544;  /* instrument-amber, used sparingly */
+    --accent-soft:   rgba(242, 165, 68, 0.14);
+    --good:          #6FCF97;  /* used only for "GO" / nominal states */
+
+    /* Type: Space Grotesk for display (geometric, technical), Inter for
+       reading text, JetBrains Mono reserved for actual data/readouts. */
+    --f-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+    --f-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --f-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+    --content-w: 1120px;
+    --pad: clamp(20px, 5vw, 64px);
+  }
+
+  /* ======================================================================
+     2. RESET & BASE
+  ====================================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 { font-family: var(--f-display); margin: 0; color: var(--text); }
+  p { margin: 0 0 1em; color: var(--text-dim); max-width: 62ch; }
+  a { color: inherit; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  img { max-width: 100%; display: block; }
+
+  /* Visible keyboard focus everywhere — accessibility floor */
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--accent); color: #101820;
+    padding: 10px 16px; z-index: 999; font-weight: 600;
+  }
+  .skip-link:focus { left: 12px; top: 12px; }
+
+  .section {
+    max-width: var(--content-w);
+    margin: 0 auto;
+    padding: 96px var(--pad);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 { font-size: clamp(28px, 4vw, 38px); font-weight: 600; }
+  .section-head .index {
+    font-family: var(--f-mono);
+    color: var(--text-faint);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* ======================================================================
+     3. BACKGROUND — BLUEPRINT GRID + DRAWING-SHEET REGISTRATION MARKS
+     A fixed, very low-opacity grid gives the whole page the feel of a
+     drafting sheet. Corner marks reference technical-drawing crop marks.
+  ====================================================================== */
+  .blueprint-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(90, 130, 170, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(90, 130, 170, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .reg-mark {
+    position: fixed;
+    width: 18px; height: 18px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .reg-mark::before, .reg-mark::after {
+    content: "";
+    position: absolute;
+    background: var(--line-strong);
+  }
+  .reg-mark::before { width: 100%; height: 1px; top: 50%; }
+  .reg-mark::after   { height: 100%; width: 1px; left: 50%; }
+  .reg-mark.tl { top: 16px; left: 16px; }
+  .reg-mark.tr { top: 16px; right: 16px; }
+  .reg-mark.bl { bottom: 16px; left: 16px; }
+  .reg-mark.br { bottom: 16px; right: 16px; }
+
+  main, header, footer { position: relative; z-index: 2; }
+
+  /* ======================================================================
+     4. BOOT / READINESS-POLL OVERLAY
+     The single orchestrated motion moment on the page: a brief systems
+     go/no-go poll, modeled on a real pre-flight readiness check, before
+     the site reveals itself. Skipped entirely for reduced-motion users.
+  ====================================================================== */
+  #boot-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #boot-overlay.hidden { opacity: 0; visibility: hidden; }
+  .boot-list {
+    font-family: var(--f-mono);
+    font-size: clamp(13px, 2vw, 16px);
+    color: var(--text-faint);
+    width: min(420px, 90vw);
+  }
+  .boot-list li {
+    display: flex; justify-content: space-between;
+    padding: 6px 0;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .boot-list li.show { opacity: 1; transform: translateY(0); }
+  .boot-list li .status { color: var(--text-faint); }
+  .boot-list li.go .status { color: var(--good); }
+  @media (prefers-reduced-motion: reduce) {
+    #boot-overlay { display: none; }
+  }
+
+  /* ======================================================================
+     5. NAVIGATION
+  ====================================================================== */
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 20, 32, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-nav .inner {
+    max-width: var(--content-w);
+    margin: 0 auto;
+    padding: 16px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 17px;
+    text-decoration: none;
+  }
+  .brand svg { flex: none; }
+  .brand .role-tag {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 14px; text-decoration: none; color: var(--text-dim);
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-toggle {
+    display: none;
+    background: none; border: 1px solid var(--line-strong);
+    color: var(--text); padding: 8px 10px; border-radius: 4px;
+    font-family: var(--f-mono); font-size: 13px; cursor: pointer;
+  }
+
+  @media (max-width: 760px) {
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--line);
+      max-height: 0; overflow: hidden;
+    }
+    .nav-links.open { max-height: 400px; }
+    .nav-links a { padding: 14px var(--pad); border-top: 1px solid var(--line); }
+    .nav-toggle { display: block; }
+  }
+
+  /* ======================================================================
+     6. HERO
+  ====================================================================== */
+  .hero {
+    max-width: var(--content-w);
+    margin: 0 auto;
+    padding: clamp(56px, 10vw, 120px) var(--pad) 64px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: end;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .eyebrow-role {
+    font-family: var(--f-mono);
+    color: var(--accent);
+    font-size: 14px;
+    margin-bottom: 18px;
+    display: block;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .hero .tagline {
+    margin-top: 20px;
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 46ch;
+  }
+  .hero .cta-row { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--f-body);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #14100a; }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-ghost { border: 1px solid var(--line-strong); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Mission-elapsed-time readout panel */
+  .met-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 20px 22px;
+  }
+  .met-panel .met-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 10px;
+  }
+  .met-panel .met-value {
+    font-family: var(--f-mono);
+    font-size: clamp(22px, 3vw, 30px);
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .met-panel .met-caption {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  /* ======================================================================
+     7. TELEMETRY STRIP (KEY STATS)
+  ====================================================================== */
+  .telemetry {
+    padding-top: 48px; padding-bottom: 48px;
+  }
+  .telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .telemetry-cell {
+    background: var(--bg-panel-2);
+    padding: 24px 20px;
+    text-align: left;
+  }
+  .telemetry-cell .num {
+    font-family: var(--f-mono);
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--accent);
+  }
+  .telemetry-cell .label {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  @media (max-width: 700px) {
+    .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ======================================================================
+     8. PROFILE / ABOUT
+  ====================================================================== */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+  }
+  .profile-photo {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    object-fit: cover;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text-faint);
+    font-family: var(--f-mono);
+    font-size: 13px;
+    text-align: center;
+  }
+  .capability-codes {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .capability-codes li {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    padding: 6px 10px;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .capability-codes li .code { color: var(--accent); }
+  @media (max-width: 700px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .profile-photo { max-width: 220px; }
+  }
+
+  /* ======================================================================
+     9. LEADERSHIP — "FLIGHT READINESS" STRUCTURE
+     This section directly emphasizes the Chief Engineer role: authority,
+     review cadence and team structure, styled after a readiness-review
+     board rather than generic "leadership" icon cards.
+  ====================================================================== */
+  .command-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 56px;
+  }
+  .command-col {
+    background: var(--bg-panel-2);
+    padding: 28px 24px;
+  }
+  .command-col h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .command-col ul { margin-top: 14px; }
+  .command-col li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 7px 0 7px 16px;
+    border-left: 2px solid var(--line-strong);
+    margin-bottom: 4px;
+  }
+  @media (max-width: 800px) {
+    .command-columns { grid-template-columns: 1fr; }
+  }
+
+  /* Org structure diagram */
+  .org-chart { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .org-node {
+    background: var(--bg-panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .org-node.lead {
+    border-color: var(--accent);
+    color: var(--accent);
+    font-family: var(--f-mono);
+  }
+  .org-connector { width: 1px; height: 28px; background: var(--line-strong); }
+  .org-branches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px 24px;
+    row-gap: 36px;
+    position: relative;
+    padding-top: 28px;
+  }
+  .org-branches::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%; height: 1px;
+    /* horizontal bar connecting the branch stems; width set to span first-to-last child via JS-free trick */
+    width: calc(100% - 0px);
+    transform: translateX(-50%);
+    background: var(--line-strong);
+  }
+  .org-branch { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; position: relative; }
+  .org-branch::before {
+    content: "";
+    width: 1px; height: 28px;
+    background: var(--line-strong);
+    position: absolute; top: -28px;
+  }
+  .org-branch .count {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  /* ======================================================================
+     10. PROGRAMS — "MISSION FILE" DOSSIERS
+  ====================================================================== */
+  .program-file {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg-panel-2);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .program-file summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .program-file summary::-webkit-details-marker { display: none; }
+  .program-file .file-id {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .program-file h3 { font-size: 20px; }
+  .program-file .file-role {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-top: 4px;
+  }
+  .program-file .chevron {
+    font-family: var(--f-mono);
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+  }
+  .program-file[open] .chevron { transform: rotate(45deg); }
+  .program-file .file-body {
+    padding: 0 26px 26px;
+    border-top: 1px solid var(--line);
+  }
+  .program-file .file-body p { margin-top: 20px; }
+  .program-file .contributions { margin-top: 16px; }
+  .program-file .contributions li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 6px 0 6px 18px;
+    position: relative;
+  }
+  .program-file .contributions li::before {
+    content: "";
+    position: absolute; left: 0; top: 14px;
+    width: 6px; height: 1px;
+    background: var(--accent);
+  }
+  .file-tags { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+  .file-tags span {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    padding: 3px 7px;
+  }
+
+  /* Five-part project write-up structure: Problem & Constraints, My Exact
+     Role, Technical Execution, Verification & Validation, and Failure
+     Analysis & Learnings. Used on every project except the design reports. */
+  .project-breakdown { margin-top: 20px; display: flex; flex-direction: column; gap: 20px; }
+  .project-field h4 {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .project-field p { font-size: 14px; margin-top: 0; }
+  .project-breakdown .contributions { margin-top: 0; }
+
+  /* Embedded PDF viewer for a project write-up / report.
+     To add a real PDF, set the iframe's src (and the "Open" link's href)
+     to the file's path, e.g. reports/design-report-2026.pdf */
+  .pdf-embeds { display: flex; flex-direction: column; gap: 20px; margin-top: 18px; }
+  .pdf-embed-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .pdf-embed-label a { color: var(--accent); text-decoration: none; }
+  .pdf-embed-label a:hover { text-decoration: underline; }
+  .pdf-embed iframe {
+    width: 100%;
+    height: 480px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--bg-panel);
+  }
+
+  /* Embedded video for a project demo/write-up, kept separate from the
+     photo slideshow. To add one, set the <video> src to the file's path,
+     e.g. videos/your-clip.mp4 */
+  .video-embeds { display: flex; flex-direction: column; gap: 20px; margin-top: 18px; }
+  .video-embed-label {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .video-embed video {
+    width: 100%;
+    max-height: 480px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: #000;
+    display: block;
+  }
+
+  /* Per-project image slideshow. To add real photos, replace the single
+     <div class="slide-placeholder">+ ADD PHOTOS</div> slide with one
+     <button class="slide"> per photo:
+     <button class="slide active" type="button" data-lightbox-src="images/your-photo.jpg" data-lightbox-caption="Optional caption">
+       <img src="images/your-photo.jpg" alt="Description">
+     </button>
+     Add a matching <button> to .slideshow-dots for each extra slide (see the
+     XFLR5 project above for a full 5-photo example). Clicking a slide also
+     opens it full-size in the lightbox; the arrows/dots are wired up
+     automatically by the script at the bottom of the file. */
+  .project-slideshow { margin-top: 18px; }
+  .slideshow-viewport { position: relative; }
+  .slideshow-slides {
+    position: relative;
+    width: 100%;
+    height: 440px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--bg-panel);
+    overflow: hidden;
+  }
+  .project-slideshow.placeholder .slideshow-slides { height: 160px; }
+  .slideshow-slides .slide {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    border: none;
+    background: var(--bg-panel);
+    cursor: pointer;
+    display: none;
+  }
+  .slideshow-slides .slide.active { display: block; }
+  .slideshow-slides .slide img,
+  .slideshow-slides .slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .slideshow-slides .slide video { cursor: default; }
+  .slide-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+  }
+  .slideshow-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--bg-panel);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .slideshow-arrow:hover, .slideshow-arrow:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .slideshow-arrow.prev { left: 10px; }
+  .slideshow-arrow.next { right: 10px; }
+  .slideshow-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+  .slideshow-dots button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+  .slideshow-dots button.active { background: var(--accent); border-color: var(--accent); }
+
+  /* Lightbox overlay for gallery photos */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.86);
+    z-index: 1000;
+    padding: 48px 24px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-overlay.open { display: flex; }
+  .lightbox-overlay img {
+    max-width: min(90vw, 1100px);
+    max-height: 78vh;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: var(--bg-panel);
+  }
+  .lightbox-caption {
+    margin-top: 16px;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+    max-width: 700px;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: var(--bg-panel);
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover, .lightbox-close:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ======================================================================
+     11. CAPABILITIES MATRIX
+  ====================================================================== */
+  .capability-groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 48px;
+  }
+  .capability-group h3 {
+    font-size: 16px;
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .capability-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    gap: 16px;
+  }
+  .capability-row .level {
+    display: flex; gap: 4px; flex: none;
+  }
+  .capability-row .level span {
+    width: 14px; height: 6px;
+    background: var(--line-strong);
+    border-radius: 1px;
+  }
+  .capability-row .level span.filled { background: var(--accent); }
+  @media (max-width: 700px) {
+    .capability-groups { grid-template-columns: 1fr; }
+  }
+
+  /* ======================================================================
+     11B. SKILLS — grouped pill lists (software/tools, distinct from the
+     rated capability matrix above)
+  ====================================================================== */
+  .skills-groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 48px;
+  }
+  .skills-groups h3 {
+    font-size: 15px;
+    color: var(--text-faint);
+    font-family: var(--f-mono);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pills span {
+    font-size: 13px;
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    padding: 7px 12px;
+  }
+  @media (max-width: 700px) {
+    .skills-groups { grid-template-columns: 1fr; }
+  }
+
+  /* ======================================================================
+     11C. RELEVANT COURSEWORK — course lists grouped by category
+  ====================================================================== */
+  .coursework-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .coursework-grid h3 {
+    font-size: 15px;
+    color: var(--text-faint);
+    font-family: var(--f-mono);
+    margin-bottom: 16px;
+  }
+  .coursework-grid li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-dim);
+  }
+  .coursework-grid .course-code {
+    font-family: var(--f-mono);
+    color: var(--accent);
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  @media (max-width: 800px) {
+    .coursework-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ======================================================================
+     12. CAREER TRAJECTORY — ascending rail timeline
+     A genuine sequence, so a rail-and-marker timeline treatment is
+     appropriate here (unlike the programs above, which are not ordered).
+  ====================================================================== */
+  .trajectory-rail {
+    position: relative;
+    padding-left: 32px;
+    border-left: 1px solid var(--line-strong);
+  }
+  .trajectory-item {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .trajectory-item:last-child { padding-bottom: 0; }
+  .trajectory-item::before {
+    content: "";
+    position: absolute;
+    left: -37px; top: 4px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .trajectory-item .t-year {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .trajectory-item h3 { font-size: 18px; margin-top: 6px; }
+  .trajectory-item .t-org { font-size: 14px; color: var(--text-faint); margin-top: 2px; }
+  .trajectory-item p { margin-top: 10px; font-size: 14px; }
+
+  /* ======================================================================
+     13. CREDENTIALS
+  ====================================================================== */
+  .credentials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .credentials-grid h3 {
+    font-size: 15px;
+    color: var(--text-faint);
+    font-family: var(--f-mono);
+    margin-bottom: 16px;
+  }
+  .credentials-grid li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .credentials-grid li .meta { display: block; color: var(--text-faint); font-size: 12px; margin-top: 2px; }
+  @media (max-width: 800px) {
+    .credentials-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ======================================================================
+     14. INSPIRATION — favorite aircraft & spacecraft
+     Each card's photo button reuses the same [data-lightbox-src] overlay
+     as the project galleries above. To add a real photo, replace a
+     <div class="aircraft-photo">...</div> placeholder with:
+     <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/name.jpg" data-lightbox-caption="Aircraft name">
+       <img src="images/inspiration/name.jpg" alt="Description">
+     </button>
+  ====================================================================== */
+  .aircraft-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .aircraft-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-panel-2);
+    display: flex;
+    flex-direction: column;
+  }
+  .aircraft-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    margin: 0;
+    padding: 10px;
+    background: var(--bg-panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-faint);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+  }
+  button.aircraft-photo { cursor: pointer; padding: 0; }
+  button.aircraft-photo:hover, button.aircraft-photo:focus-visible { color: var(--accent); }
+  .aircraft-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .aircraft-info { padding: 20px 20px 24px; }
+  .aircraft-name { font-family: var(--f-display); font-size: 17px; font-weight: 600; }
+  .aircraft-role {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .aircraft-info p { font-size: 13px; margin-top: 12px; }
+  .aircraft-info p strong { color: var(--text); }
+  @media (max-width: 900px) {
+    .aircraft-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .aircraft-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ======================================================================
+     15. CONTACT / FOOTER
+  ====================================================================== */
+  .contact-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .contact-list a {
+    display: flex; justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .contact-list a .arrow { color: var(--text-faint); font-family: var(--f-mono); }
+  .contact-list a:hover { color: var(--accent); }
+  .contact-list a:hover .arrow { color: var(--accent); }
+
+  site-footer, footer {
+    max-width: var(--content-w);
+    margin: 0 auto;
+    padding: 28px var(--pad) 48px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-faint);
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media (max-width: 700px) {
+    .contact-panel { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <a class="skip-link" href="#profile">Skip to content</a>
+
+  <!-- ==========================================================================
+       BOOT / READINESS-POLL OVERLAY
+       Runs once on load, then fades. Purely presentational (aria-hidden) —
+       screen reader users go straight to the real content underneath.
+  ========================================================================== -->
+  <div id="boot-overlay" aria-hidden="true">
+    <ul class="boot-list" id="boot-list">
+      <li data-status="NOMINAL">Structures <span class="status">— — —</span></li>
+      <li data-status="NOMINAL">Propulsion <span class="status">— — —</span></li>
+      <li data-status="NOMINAL">Avionics &amp; software <span class="status">— — —</span></li>
+      <li data-status="GO">Chief engineer sign-off <span class="status">— — —</span></li>
+    </ul>
+  </div>
+
+  <!-- Fixed background texture: blueprint grid + drawing-sheet corner marks -->
+  <div class="blueprint-grid" aria-hidden="true"></div>
+  <div class="reg-mark tl" aria-hidden="true"></div>
+  <div class="reg-mark tr" aria-hidden="true"></div>
+  <div class="reg-mark bl" aria-hidden="true"></div>
+  <div class="reg-mark br" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       NAVIGATION
+  ========================================================================== -->
+  <header class="site-nav">
+    <div class="inner">
+      <a class="brand" href="#home">
+        <!-- Simple geometric mark: a delta / flight-path wedge -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2 L22 20 L2 20 Z" stroke="#F2A544" stroke-width="1.5" fill="none"/>
+          <path d="M12 9 L17 20 L7 20 Z" stroke="#F2A544" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg>
+        Samuel Herrera
+        <span class="role-tag">CHIEF ENGINEER, STUDENT TEAM</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#profile">Profile</a></li>
+          <li><a href="#command">Leadership</a></li>
+          <li><a href="#programs">Projects</a></li>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#coursework">Coursework</a></li>
+          <li><a href="#trajectory">Trajectory</a></li>
+          <li><a href="#internships">Internships</a></li>
+          <li><a href="#inspiration">Inspiration</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================================================================
+         HERO
+         The characteristic "thing in the subject's world" here is the
+         mission-elapsed-time clock — a real concept from flight operations —
+         rather than a generic hero image or gradient.
+    ======================================================================== -->
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow-role">Chief Engineer — Design, Build, Fly, Washington University in St. Louis</span>
+        <h1>Samuel Herrera</h1>
+        <p class="tagline">
+          I'm an aerospace engineering master's student and chief engineer of
+          WashU DBF, our university's AIAA Design/Build/Fly team. This year
+          I also entered the team into SAE Aero Design for the first time,
+          holding final technical authority across aerodynamics, structures
+          and payload systems for both competition aircraft.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#programs">View project history</a>
+          <a class="btn btn-ghost" href="resume.pdf">Download resume</a>
+        </div>
+      </div>
+
+      <div class="met-panel">
+        <div class="met-label">TIME ON TEAM — ENGINEERING JOURNEY</div>
+        <div class="met-value" id="met-clock">0000d 00:00:00</div>
+        <div class="met-caption">Since joining WashU DBF, <span id="met-start-year">2023</span></div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TELEMETRY STRIP — key figures as instrument-panel cells
+    ======================================================================== -->
+    <section class="telemetry section" aria-label="Career highlights">
+      <div class="telemetry-grid">
+        <div class="telemetry-cell">
+          <div class="num">2</div>
+          <div class="label">Competitions — AIAA DBF &amp; SAE Aero Design</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="num">83</div>
+          <div class="label">Students across current team</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="num">21</div>
+          <div class="label">Wind-tunnel &amp; flight-test sessions run</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="num">3</div>
+          <div class="label">Years designing &amp; building competition aircraft</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PROFILE / ABOUT
+    ======================================================================== -->
+    <section class="section" id="profile">
+      <div class="section-head">
+        <h2>Profile</h2>
+        <span class="index">01 / 10</span>
+      </div>
+      <div class="profile-grid">
+        <img class="profile-photo" src="linkedinphoto.jpg" alt="Samuel Herrera">
+        <div>
+          <p>
+            I'm a master's student in aerospace engineering at Washington University in St. Louis,
+            working across aerodynamics, structures and payload systems for
+            WashU Design, Build, Fly, our AIAA Design/Build/Fly team. I started as a
+            first-year member running aerodynamic analysis, and now serve as
+            chief engineer, leading the team through design reviews, build
+            cycles, and this year's first-ever entry into SAE Aero Design.
+          </p>
+          <p>
+            My approach treats every requirement as a trade: mass against
+            margin, schedule against risk, elegance against manufacturability.
+            As chief engineer, the part of the job I care most about is building
+            a team and a review culture that catches the failure mode nobody
+            wrote down, even without a professional program's budget or safety net.
+          </p>
+          <p>
+            Based in St. Louis, Missouri. Currently pursuing an M.S. in Aerospace
+            Engineering at Washington University in St. Louis, expected December 2027.
+          </p>
+          <ul class="capability-codes" aria-label="Core disciplines">
+            <li><span class="code">AERO</span> Aerodynamic analysis</li>
+            <li><span class="code">CFD</span> Computational fluid dynamics</li>
+            <li><span class="code">STR</span> Structural design</li>
+            <li><span class="code">COMP</span> Composite construction</li>
+            <li><span class="code">PAY</span> Payload systems</li>
+            <li><span class="code">WT</span> Wind tunnel testing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         LEADERSHIP — emphasizes the chief-engineer role directly, modeled
+         on a real design-review / readiness-review structure.
+    ======================================================================== -->
+    <section class="section" id="command">
+      <div class="section-head">
+        <h2>Leading as chief engineer</h2>
+        <span class="index">02 / 10</span>
+      </div>
+      <p style="margin-bottom: 40px;">
+        As chief engineer of WashU DBF, I sit at the center of every major
+        technical decision the team makes: chairing design reviews, owning the
+        risk register, and making the final call on whether the vehicle is
+        ready to fly, entirely with a volunteer student team and a
+        competition-season clock.
+      </p>
+
+      <div class="command-columns">
+        <div class="command-col">
+          <h3>Design authority</h3>
+          <p style="font-size:14px;">Final sign-off on aerodynamic, structural and payload trades across both aircraft.</p>
+          <ul>
+            <li>Chair preliminary and critical design reviews each build cycle</li>
+            <li>Resolve cross-subsystem design conflicts between student leads</li>
+            <li>Scoped and led the team's first-ever entry into SAE Aero Design</li>
+          </ul>
+        </div>
+        <div class="command-col">
+          <h3>Risk &amp; readiness</h3>
+          <p style="font-size:14px;">Own the technical risk register and the go/no-go recommendation before test flights.</p>
+          <ul>
+            <li>Run flight-readiness reviews with subsystem leads before every test flight</li>
+            <li>Track open risks to closure ahead of competition and safety inspections</li>
+            <li>Brief the faculty advisor and university on program status</li>
+          </ul>
+        </div>
+        <div class="command-col">
+          <h3>Team &amp; mentorship</h3>
+          <p style="font-size:14px;">Grow the students who will eventually hold this seat after I graduate.</p>
+          <ul>
+            <li>Mentor 15+ underclassmen toward subsystem-lead roles</li>
+            <li>Set the team's design-review and documentation standards</li>
+            <li>Run onboarding &amp; training for new first-year members</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Simple org-structure diagram, built with CSS rather than an image -->
+      <div class="org-chart" role="img" aria-label="Organization chart: Chief Engineer above six subsystem leads, each managing a small student team">
+        <div class="org-node lead">Chief Engineer — Samuel Herrera</div>
+        <div class="org-connector"></div>
+        <div class="org-branches">
+          <div class="org-branch">
+            <div class="org-node">Propulsion lead</div>
+            <div class="count">12 students</div>
+          </div>
+          <div class="org-branch">
+            <div class="org-node">Avionics lead</div>
+            <div class="count">14 students</div>
+          </div>
+          <div class="org-branch">
+            <div class="org-node">Structures lead</div>
+            <div class="count">14 students</div>
+          </div>
+          <div class="org-branch">
+            <div class="org-node">Manufacturing lead</div>
+            <div class="count">18 students</div>
+          </div>
+          <div class="org-branch">
+            <div class="org-node">Simulation Development lead</div>
+            <div class="count">10 students</div>
+          </div>
+          <div class="org-branch">
+            <div class="org-node">Aerodynamics &amp; Payload lead</div>
+            <div class="count">15 students</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PROGRAMS — mission-file dossiers, expandable for detail.
+         Example content only — see the note at the top of this file about
+         export-controlled or confidential program details.
+    ======================================================================== -->
+    <section class="section" id="programs">
+      <div class="section-head">
+        <h2>Project history</h2>
+        <span class="index">03 / 10</span>
+      </div>
+
+      <details class="program-file" open>
+        <summary>
+          <div>
+            <span class="file-id">PRJ — XFLR5 AERO</span>
+            <h3>Aerodynamic analysis in XFLR5</h3>
+            <div class="file-role">Aerodynamics Lead → Chief Engineer</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>The DBF aircraft's aerodynamic sizing had to hit a specific mission's lift, drag, takeoff-distance, and payload targets each year, using only panel-method tools and a build cycle too short to iterate blindly.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Aerodynamics Lead, and later Chief Engineer, I owned the full aerodynamic sizing and stability analysis in XFLR5 for the team's DBF aircraft, from airfoil down-select through final tail sizing.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Selected and compared candidate airfoils against mission lift and drag targets</li>
+                <li>Built lift/drag polars used to size the wing for takeoff distance and payload requirements</li>
+                <li>Sized the tail and set CG range for static-margin requirements across payload configurations</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Cross-checked polar predictions against the prior year's flight-test data, and later against CFD and wind tunnel results, before locking the design.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>An early airfoil choice looked good in XFLR5's inviscid polars but stalled earlier than predicted in flight test. I learned to treat panel-method stall margins as optimistic and started padding CG range and stall margin accordingly on later designs.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/xflr5/airfoil-comparison.png" data-lightbox-caption="Candidate airfoil polar comparison (Cd/Cl, Cl/alpha, Cm/alpha, Cl/Cd) used for down-select">
+                  <img src="images/xflr5/airfoil-comparison.png" alt="XFLR5 airfoil polar comparison across Cd/Cl, Cl/alpha, Cm/alpha and Cl/Cd">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/xflr5/aero-graphs.png" data-lightbox-caption="Wing lift, drag and moment curves (Fz, CL, Cm, CD vs. alpha) from the XFLR5 sizing model">
+                  <img src="images/xflr5/aero-graphs.png" alt="XFLR5 lift, drag and moment curves versus angle of attack">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/xflr5/lift-drag-3d.png" data-lightbox-caption="3D panel model of the DBF aircraft with computed lift/drag and stability derivatives">
+                  <img src="images/xflr5/lift-drag-3d.png" alt="XFLR5 3D panel model of the aircraft with lift and drag results">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/xflr5/stability-modes.png" data-lightbox-caption="Longitudinal stability mode (root locus) analysis used to set CG range">
+                  <img src="images/xflr5/stability-modes.png" alt="XFLR5 longitudinal stability mode root locus plot">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/xflr5/stream-force.png" data-lightbox-caption="Surface pressure and force-vector visualization on the 3D panel model">
+                  <img src="images/xflr5/stream-force.png" alt="XFLR5 3D panel model showing surface pressure and force vectors">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+              <button type="button" aria-label="Photo 5"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>AERO</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — WINGLET CFD</span>
+            <h3>CFD study on winglets &amp; full aircraft</h3>
+            <div class="file-role">Aerodynamics Lead</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>XFLR5's panel method couldn't capture induced-drag reduction from winglet geometry or interference drag at the wing-fuselage junction, but the team needed a defensible drag number before committing tooling.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Aerodynamics Lead, I set up and ran the CFD studies independently, then reconciled the results against our XFLR5 model for the design review.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Modeled several winglet geometries to compare induced-drag reduction</li>
+                <li>Ran full-aircraft CFD to check for interference drag at the wing-fuselage junction</li>
+                <li>Cross-checked CFD lift and drag results against XFLR5 to flag where panel-method assumptions broke down</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Cross-checked CFD lift and drag coefficients against the XFLR5 polars at the same operating points, and flagged the angle-of-attack range where the two methods diverged.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>The first mesh was too coarse near the wingtip and under-predicted the winglet's drag benefit. Refining the boundary-layer mesh changed the answer enough that I built a mesh-convergence check into every CFD run afterward.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/winglet-cfd/lift-drag-convergence.png" data-lightbox-caption="Lift and drag force convergence history from the full-aircraft CFD solver run">
+                  <img src="images/winglet-cfd/lift-drag-convergence.png" alt="CFD solver convergence plots for lift force and drag force versus iteration count">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/winglet-cfd/full-aircraft-flow-trajectories.png" data-lightbox-caption="Full-aircraft flow trajectories colored by vertical velocity">
+                  <img src="images/winglet-cfd/full-aircraft-flow-trajectories.png" alt="CFD flow trajectories around the full aircraft, colored by vertical velocity">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/winglet-cfd/wing-flow-trajectories.png" data-lightbox-caption="Close-up wing flow trajectories used to evaluate wingtip vortex behavior">
+                  <img src="images/winglet-cfd/wing-flow-trajectories.png" alt="CFD flow trajectories over the wing showing vortex behavior near the tip">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/winglet-cfd/winglet-flow-trajectories.png" data-lightbox-caption="Winglet flow trajectories used to compare induced-drag reduction across geometries">
+                  <img src="images/winglet-cfd/winglet-flow-trajectories.png" alt="CFD flow trajectories around the winglet, colored by vertical velocity">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/winglet-cfd/pressure-surface-plot.png" data-lightbox-caption="Surface pressure distribution across the aircraft from the full-aircraft CFD run">
+                  <img src="images/winglet-cfd/pressure-surface-plot.png" alt="CFD surface pressure contour plot over the aircraft">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/winglet-cfd/pressure-cut-plot.png" data-lightbox-caption="Pressure field cut plot through the aircraft used to check for interference drag at the wing-fuselage junction">
+                  <img src="images/winglet-cfd/pressure-cut-plot.png" alt="CFD pressure cut plot through the aircraft flow field">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+              <button type="button" aria-label="Photo 5"></button>
+              <button type="button" aria-label="Photo 6"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>CFD</span><span>AERO</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — CF BUILD</span>
+            <h3>Carbon-fiber aircraft build initiative</h3>
+            <div class="file-role">Initiative Lead — Summer 2026</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>Moving off balsa-and-foam onto a carbon-fiber composite airframe meant building a mold-making and wet-layup process, tooling, and quality-control method from zero, on a volunteer team with no prior institutional composites experience, inside a single summer.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>I initiated and led the effort as Initiative Lead, defining the layup process and training the students who would carry it forward after I graduate.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Developed the mold-making and wet-layup process for a carbon-fiber wing and fuselage</li>
+                <li>Ran coupon testing to characterize layup strength before committing to a full airframe</li>
+                <li>Documented the process into a build guide so the initiative outlives my time on the team</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Ran tensile and flexure coupon tests to characterize actual layup strength against datasheet fiber properties before committing resources to a full-scale wing and fuselage.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>The first coupons showed lower-than-expected strength from resin-rich layup and trapped air. Adjusting vacuum-bagging pressure and cure time fixed it; I learned to validate a new process on small coupons before ever cutting full-size tooling.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/cf-build/mold-prep.jpg" data-lightbox-caption="Sanding and prepping 3D-printed mold segments before layup">
+                  <img src="images/cf-build/mold-prep.jpg" alt="Sanding 3D-printed mold segments for the carbon-fiber fuselage">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/laser-cut-formers.jpg" data-lightbox-caption="Laser-cutting plywood formers and bulkheads for the fuselage tooling">
+                  <img src="images/cf-build/laser-cut-formers.jpg" alt="Laser cutter cutting plywood formers and bulkheads">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/mold-halves-primed.jpg" data-lightbox-caption="Primed nose-cone mold halves curing outdoors before release-agent prep">
+                  <img src="images/cf-build/mold-halves-primed.jpg" alt="Primed nose-cone mold halves on cardboard outdoors">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/sanding-layup.jpg" data-lightbox-caption="Sanding cured carbon-fiber fuselage sections to shape">
+                  <img src="images/cf-build/sanding-layup.jpg" alt="Sanding cured carbon-fiber fuselage sections on the workbench">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/dust-contained-sanding.jpg" data-lightbox-caption="Finishing a fuselage section inside a dust-containment box">
+                  <img src="images/cf-build/dust-contained-sanding.jpg" alt="Two students sanding a carbon-fiber fuselage section inside a cardboard dust-containment box">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/finishing-tail-section.jpg" data-lightbox-caption="Fairing and finishing a tail section with body filler and sandpaper">
+                  <img src="images/cf-build/finishing-tail-section.jpg" alt="Finishing a composite tail section with filler and sandpaper">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/finished-nose-sections.jpg" data-lightbox-caption="Two finished carbon-fiber nose-cone sections after cure and cleanup">
+                  <img src="images/cf-build/finished-nose-sections.jpg" alt="Two finished glossy carbon-fiber nose-cone sections">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/finished-fuselage-shells.jpg" data-lightbox-caption="Finished carbon-fiber fuselage shell halves ready for assembly">
+                  <img src="images/cf-build/finished-fuselage-shells.jpg" alt="Two finished carbon-fiber fuselage shell halves">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/cf-build/assembled-aircraft.jpg" data-lightbox-caption="The assembled carbon-fiber aircraft with motor, propeller and landing gear installed">
+                  <img src="images/cf-build/assembled-aircraft.jpg" alt="Assembled carbon-fiber aircraft with motor and landing gear on the workbench">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+              <button type="button" aria-label="Photo 5"></button>
+              <button type="button" aria-label="Photo 6"></button>
+              <button type="button" aria-label="Photo 7"></button>
+              <button type="button" aria-label="Photo 8"></button>
+              <button type="button" aria-label="Photo 9"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>COMP</span><span>STR</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — BANNER RELEASE</span>
+            <h3>Payload design: banner release mechanism</h3>
+            <div class="file-role">Payload Lead</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>The banner-drop mission required a release mechanism that fires reliably on command mid-flight without fouling the tail, adding excess drag, or adding meaningful weight.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Payload Lead, I owned the mechanism design end-to-end, from concept through ground-test sign-off.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Designed a servo-actuated latch mechanism with a mechanical backup release</li>
+                <li>Iterated the mount to clear the banner cleanly without fouling the tail on release</li>
+                <li>Ran repeated ground-test cycles to confirm reliable actuation before flight test</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Ran repeated ground-test actuation cycles under load to confirm reliable release before committing to flight test.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>An early prototype's primary latch occasionally hung up under aerodynamic load. Adding a mechanical backup release closed that single-point failure, which is why every payload mechanism I've designed since keeps a backup actuation path.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/banner-release/cad-isometric.png" data-lightbox-caption="CAD model of the servo-actuated latch mechanism">
+                  <img src="images/banner-release/cad-isometric.png" alt="Isometric CAD model of the banner release latch mechanism">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/banner-release/cad-front-view.png" data-lightbox-caption="Front-view CAD drawing of the latch mechanism and mount">
+                  <img src="images/banner-release/cad-front-view.png" alt="Front-view CAD drawing of the banner release mechanism and mount">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/banner-release/latch-mechanism-closeup.jpg" data-lightbox-caption="3D-printed prototype of the rotating latch, showing the release cam and backup slot">
+                  <img src="images/banner-release/latch-mechanism-closeup.jpg" alt="Close-up of the 3D-printed rotating latch mechanism prototype">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/banner-release/wind-tunnel-mount.jpg" data-lightbox-caption="Full mechanism mounted with the banner reel for a wind tunnel ground test">
+                  <img src="images/banner-release/wind-tunnel-mount.jpg" alt="Banner release mechanism mounted on a turntable in the wind tunnel with the banner reel attached">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>PAY</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — STRUCTURES FEA</span>
+            <h3>FEA on aircraft structural components</h3>
+            <div class="file-role">Chief Engineer</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>Several structural components, the landing gear, horizontal stabilizer spar, and vertical stabilizer plate, had to survive worst-case flight and landing loads with margin, but conservative over-design would add weight the mission budget couldn't afford.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Chief Engineer, I built and ran the FEA models for each of these components myself and made the final call on releasing every design for manufacturing.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Built FEA models of the landing gear, horizontal stabilizer spar, and vertical stabilizer plate under worst-case flight and landing loads</li>
+                <li>Identified and reinforced stress concentrations at load-bearing joints and mounts</li>
+                <li>Confirmed positive margins of safety before releasing each design for manufacturing</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Confirmed positive margins of safety at the worst-case load case for each component, then rechecked margins after reinforcing the identified stress concentrations.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>An early landing gear iteration showed a stress concentration that hand calculations alone hadn't caught. It's why I now run FEA on every load-bearing structural component instead of relying on simplified beam analysis.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/structures-fea/landing-gear-mount-cad.png" data-lightbox-caption="CAD context view of the front landing gear mount and motor firewall">
+                  <img src="images/structures-fea/landing-gear-mount-cad.png" alt="CAD assembly view of the front landing gear mount inside the fuselage">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/landing-gear-mount-closeup-cad.png" data-lightbox-caption="Close-up CAD view of the landing gear mounting bracket">
+                  <img src="images/structures-fea/landing-gear-mount-closeup-cad.png" alt="Close-up CAD view of the landing gear mounting bracket">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/landing-gear-displacement.png" data-lightbox-caption="Landing gear FEA displacement under worst-case landing load">
+                  <img src="images/structures-fea/landing-gear-displacement.png" alt="FEA displacement contour plot of the landing gear leg">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/hstab-displacement.png" data-lightbox-caption="Horizontal stabilizer spar FEA displacement under worst-case flight load">
+                  <img src="images/structures-fea/hstab-displacement.png" alt="FEA displacement contour plot of the horizontal stabilizer spar">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/hstab-stress.png" data-lightbox-caption="Horizontal stabilizer spar FEA von Mises stress under worst-case flight load">
+                  <img src="images/structures-fea/hstab-stress.png" alt="FEA von Mises stress contour plot of the horizontal stabilizer spar">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/vstab-displacement.png" data-lightbox-caption="Vertical stabilizer plate FEA displacement under worst-case flight load">
+                  <img src="images/structures-fea/vstab-displacement.png" alt="FEA displacement contour plot of the vertical stabilizer plate">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/vstab-stress.png" data-lightbox-caption="Vertical stabilizer plate FEA von Mises stress under worst-case flight load">
+                  <img src="images/structures-fea/vstab-stress.png" alt="FEA von Mises stress contour plot of the vertical stabilizer plate">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+              <button type="button" aria-label="Photo 5"></button>
+              <button type="button" aria-label="Photo 6"></button>
+              <button type="button" aria-label="Photo 7"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>STR</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — DESIGN REPORTS</span>
+            <h3>Competition design reports</h3>
+            <div class="file-role">Report Lead / Chief Engineer</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <p>
+            Co-authored the team's AIAA DBF technical design reports across
+            two competition cycles: the document that has to explain and
+            defend every major design decision on the aircraft to the
+            judges. In 2024-2025 I wrote the aerodynamics section as an Aerodynamics & Payload
+            member; in 2025-2026, as Aerodynamics & Payload lead, I contributed across every
+            section of the report.
+          </p>
+          <ul class="contributions">
+            <li>Co-authored the 2025 AIAA DBF design report, writing the aerodynamics section as Aerodynamics Lead</li>
+            <li>Co-authored the 2026 AIAA DBF design report, contributing to the aerodynamics, structures, propulsion and payload sections as Chief Engineer</li>
+            <li>Coordinated section leads to deliver a consistent, judge-ready report on deadline</li>
+
+          </ul>
+         
+          <div class="pdf-embeds">
+            <div class="pdf-embed">
+              <div class="pdf-embed-label">
+                <span>AIAA DBF DESIGN REPORT — 2026 (PDF, co-author)</span>
+                <a href="reports/dbf-design-report-2026.pdf" target="_blank" rel="noopener">Open in new tab &rarr;</a>
+              </div>
+              <iframe src="reports/dbf-design-report-2026.pdf" title="AIAA DBF design report, 2026"></iframe>
+            </div>
+            <div class="pdf-embed">
+              <div class="pdf-embed-label">
+                <span>AIAA DBF DESIGN REPORT — 2025 (PDF, co-author)</span>
+                <a href="reports/dbf-design-report-2025.pdf" target="_blank" rel="noopener">Open in new tab &rarr;</a>
+              </div>
+              <iframe src="reports/dbf-design-report-2025.pdf" title="AIAA DBF design report, 2025"></iframe>
+            </div>
+          </div>
+          <div class="file-tags"><span>DOC</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — WIND TUNNEL</span>
+            <h3>Wind tunnel testing: banner sizing &amp; release mechanism</h3>
+            <div class="file-role">Aerodynamics Lead</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>The banner-drop mission's drag budget and the release mechanism's behavior under real airflow couldn't be fully predicted from XFLR5 or CFD alone, and the team needed real data across a few candidate banner sizes before locking the final design, but tunnel access and scale-model budget were both limited.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Aerodynamics Lead, I built the banner test articles and mechanism mount, ran the tunnel entry, and reduced the data myself.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Built scale test articles across several candidate banner sizes and mounted them on a turntable in the tunnel</li>
+                <li>Measured drag across banner sizes and airflow conditions to size the final banner within the mission's drag budget</li>
+                <li>Ran the banner release mechanism under tunnel airflow to confirm reliable actuation and a clean release before flight test</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Compared measured drag across candidate banner sizes to close out the aerodynamic sizing question, then cycled the release mechanism repeatedly under tunnel airflow to confirm it released cleanly without fouling the tail.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>The largest banner size test article showed higher drag than the panel-method estimate at low angles of attack, which is why I now budget a drag margin whenever an add-on payload's size hasn't been wind-tunnel validated.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo and video slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/wind-tunnel/banner-size-test-article.jpg" data-lightbox-caption="A candidate banner-size test article mounted on the tunnel turntable with tuft flow-visualization lines">
+                  <img src="images/wind-tunnel/banner-size-test-article.jpg" alt="Banner-size test article mounted on the wind tunnel turntable with tuft flow-visualization lines">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/wind-tunnel/mechanism-mount-1.jpg" data-lightbox-caption="The banner release mechanism and rolled banner mounted on the tunnel turntable">
+                  <img src="images/wind-tunnel/mechanism-mount-1.jpg" alt="Banner release mechanism and rolled banner mounted on the wind tunnel turntable">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/wind-tunnel/mechanism-mount-2.jpg" data-lightbox-caption="The banner release mechanism and rolled banner mounted on the tunnel turntable">
+                  <img src="images/wind-tunnel/mechanism-mount-2.jpg" alt="Banner release mechanism and rolled banner mounted on the wind tunnel turntable, second view">
+                </button>
+                <div class="slide">
+                  <video src="videos/wind-tunnel/test-run-1.mp4" controls playsinline></video>
+                </div>
+                <div class="slide">
+                  <video src="videos/wind-tunnel/test-run-2.mp4" controls playsinline></video>
+                </div>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Video 1"></button>
+              <button type="button" aria-label="Video 2"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>WT</span><span>AERO</span><span>PAY</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — AUTONOMOUS AMBULANCE</span>
+            <h3>Ambulance obstacle-warning system</h3>
+            <div class="file-role">Independent Project</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>A scale ambulance model needed to automatically warn nearby pedestrians and traffic when it got close, using only an ultrasonic distance sensor, on a hard $50 parts budget that ruled out any off-the-shelf LiDAR or camera-based sensing.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>Independent project. I designed and built the full system myself: the ultrasonic sensing circuit, the warning logic, and the cardboard ambulance chassis it's mounted on.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Wired an ultrasonic distance sensor, red/blue warning LEDs, and a buzzer to an Arduino within the $50 budget</li>
+                <li>Wrote the control loop to continuously poll distance and trigger the lights and siren tone inside a set proximity threshold</li>
+                <li>Built and wired the cardboard ambulance chassis to mount and demonstrate the electronics</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Bench-tested the ultrasonic sensor against a range of distances and approach angles to confirm the warning lights and buzzer triggered consistently before mounting everything in the chassis.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>The ultrasonic sensor needed far more fine-tuning than expected to get consistent, false-trigger-free readings, which is why I now budget extra calibration time whenever a project relies on low-cost sensor hardware instead of assuming datasheet specs will hold up in practice.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/ambulance/logic-flowchart.jpg" data-lightbox-caption="Control-loop flowchart: poll distance, and trigger warning lights and buzzer inside the 10cm threshold">
+                  <img src="images/ambulance/logic-flowchart.jpg" alt="Flowchart of the ambulance warning system control loop">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/ambulance/parts-and-electronics.jpg" data-lightbox-caption="Parts laid out within the $50 budget: Arduino, breadboard, ultrasonic sensor, LEDs, buzzer, and chassis plates">
+                  <img src="images/ambulance/parts-and-electronics.jpg" alt="Arduino, ultrasonic sensor, LEDs, buzzer, and chassis parts laid out on a table">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/ambulance/chassis-assembly.jpg" data-lightbox-caption="Assembling the drive chassis and wiring the motors">
+                  <img src="images/ambulance/chassis-assembly.jpg" alt="Assembling the ambulance's drive chassis and motor wiring">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/ambulance/finished-model.jpg" data-lightbox-caption="The finished cardboard ambulance model with warning lights and ultrasonic sensor installed">
+                  <img src="images/ambulance/finished-model.jpg" alt="Finished cardboard ambulance model with warning lights and ultrasonic sensor installed">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+            </div>
+          </div>
+          <div class="video-embeds">
+            <div class="video-embed">
+              <div class="video-embed-label">DEMO VIDEO</div>
+              <video src="videos/ambulance/demo.mp4" controls playsinline></video>
+            </div>
+          </div>
+          <div class="file-tags"><span>AUTO</span><span>EMBED</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — ADAPTIVE CRUISE CONTROL</span>
+            <h3>Adaptive cruise control in MATLAB/Simulink</h3>
+            <div class="file-role">Independent Project</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>Maintaining a safe following distance and matching lead-vehicle speed changes has to be balanced against ride comfort; a controller that closes gaps aggressively keeps distance error low but produces uncomfortable acceleration transients.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>Independent project. I built the vehicle model, designed the controller, and ran all simulation validation myself.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Built a longitudinal vehicle dynamics model and a closed-loop controller for gap and speed regulation</li>
+                <li>Tuned controller gains to minimize following-distance error while keeping jerk within a comfort limit</li>
+                <li>Validated performance in simulation across cut-in and lead-vehicle hard-braking scenarios</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Validated performance in simulation across cut-in and lead-vehicle hard-braking scenarios, checking both following-distance error and jerk against target limits.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>My first gain set minimized following-distance error but produced jerk well above the comfort limit during hard braking. Retuning around a combined error/jerk cost function found a setpoint that held both within spec.</p>
+            </div>
+          </div>
+          <div class="pdf-embeds">
+            <div class="pdf-embed">
+              <div class="pdf-embed-label">
+                <span>PROJECT WRITE-UP (PDF)</span>
+                <a href="reports/adaptive-cruise-control.pdf" target="_blank" rel="noopener">Open in new tab &rarr;</a>
+              </div>
+              <iframe src="reports/adaptive-cruise-control.pdf" title="Adaptive cruise control write-up"></iframe>
+            </div>
+          </div>
+          <div class="file-tags"><span>CTRL</span><span>SIM</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — HEAT SINK OPTIMIZATION</span>
+            <h3>PC heat sink material optimization in COMSOL</h3>
+            <div class="file-role">Independent Project</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>A CPU heat sink has to keep junction temperature under the thermal limit, but higher-conductivity materials add mass and cost; the "obvious" material choice isn't automatically the right trade for a given form factor.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>Independent project. I built the COMSOL model, ran the material and geometry comparisons, and selected the final design myself.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>Built a conjugate heat transfer model of the heat sink under a fixed CPU thermal load</li>
+                <li>Compared aluminum, copper, and copper-aluminum hybrid designs on thermal resistance, mass, and material cost</li>
+                <li>Optimized fin spacing and height to reduce peak junction temperature within a fixed sink volume</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Checked the model's predicted peak junction temperature and thermal resistance against manufacturer datasheet values for a comparable stock heat sink to confirm it was physically reasonable before trusting the optimization results.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>An early fin geometry looked best on paper for thermal resistance but exceeded a realistic size and mass constraint for a desktop case. That pushed me to add mass and volume as explicit optimization constraints instead of optimizing thermal performance alone.</p>
+            </div>
+          </div>
+          <div class="pdf-embeds">
+            <div class="pdf-embed">
+              <div class="pdf-embed-label">
+                <span>PROJECT WRITE-UP (PDF)</span>
+                <a href="reports/heat-sink-optimization.pdf" target="_blank" rel="noopener">Open in new tab &rarr;</a>
+              </div>
+              <iframe src="reports/heat-sink-optimization.pdf" title="PC heat sink material optimization write-up"></iframe>
+            </div>
+          </div>
+          <div class="file-tags"><span>THERM</span><span>COMSOL</span></div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ========================================================================
+         CAPABILITIES MATRIX
+    ======================================================================== -->
+    <section class="section" id="capabilities">
+      <div class="section-head">
+        <h2>Capabilities</h2>
+        <span class="index">04 / 10</span>
+      </div>
+      <div class="capability-groups">
+
+        <div class="capability-group">
+          <h3>AERODYNAMICS &amp; CFD</h3>
+          <div class="capability-row"><span>Aerodynamic sizing &amp; stability analysis (XFLR5)</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Computational fluid dynamics (ANSYS Fluent)</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Wind tunnel testing &amp; data reduction</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+        </div>
+
+        <div class="capability-group">
+          <h3>STRUCTURES &amp; MANUFACTURING</h3>
+          <div class="capability-row"><span>Carbon-fiber composite layup &amp; tooling</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Finite element analysis (SolidWorks Simulation)</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>GD&amp;T &amp; tolerance stack-up analysis</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+        </div>
+
+        <div class="capability-group">
+          <h3>PAYLOAD &amp; SYSTEMS</h3>
+          <div class="capability-row"><span>Mechanism design (servo-actuated release systems)</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Competition rules &amp; requirements compliance</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Embedded systems &amp; sensor integration</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+        </div>
+
+        <div class="capability-group">
+          <h3>MECHANICAL DESIGN &amp; TEST</h3>
+          <div class="capability-row"><span>Fatigue, fracture &amp; thermal analysis</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Data acquisition &amp; instrumentation (strain gauges, load cells)</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+        </div>
+
+        <div class="capability-group">
+          <h3>PROGRAM LEADERSHIP</h3>
+          <div class="capability-row"><span>Design review chair &amp; technical report writing</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+          <div class="capability-row"><span>Cross-functional student team leadership</span>
+            <span class="level"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SKILLS — software/tools and soft skills as grouped pill lists.
+         Kept distinct from the Capabilities matrix above, which rates
+         proficiency; this section is a quick-scan inventory instead.
+    ======================================================================== -->
+    <section class="section" id="skills">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <span class="index">05 / 10</span>
+      </div>
+      <div class="skills-groups">
+        <div>
+          <h3>SOFTWARE &amp; ANALYSIS</h3>
+          <ul class="skill-pills">
+            <li><span>XFLR5</span></li>
+            <li><span>ANSYS Fluent</span></li>
+            <li><span>ANSYS Mechanical (FEA)</span></li>
+            <li><span>SolidWorks &amp; SolidWorks Simulation</span></li>
+            <li><span>MATLAB &amp; Simulink</span></li>
+            <li><span>Python</span></li>
+            <li><span>GD&amp;T (ASME Y14.5) &amp; tolerance stack-up</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>DESIGN &amp; MANUFACTURING</h3>
+          <ul class="skill-pills">
+            <li><span>Carbon-fiber composite layup</span></li>
+            <li><span>CNC machining</span></li>
+            <li><span>3D printing (FDM &amp; resin)</span></li>
+            <li><span>Wind tunnel model fabrication</span></li>
+            <li><span>Sheet metal fabrication</span></li>
+            <li><span>Welding (TIG/MIG)</span></li>
+            <li><span>Design for manufacturability &amp; assembly (DFM/DFA)</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>PROGRAMMING &amp; DATA</h3>
+          <ul class="skill-pills">
+            <li><span>Python (data analysis &amp; automation)</span></li>
+            <li><span>MATLAB scripting</span></li>
+            <li><span>Excel / VBA for test-data reduction</span></li>
+            <li><span>Data acquisition (DAQ) &amp; sensor instrumentation</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>LEADERSHIP &amp; COMMUNICATION</h3>
+          <ul class="skill-pills">
+            <li><span>Technical report writing</span></li>
+            <li><span>Design review facilitation</span></li>
+            <li><span>Cross-functional team leadership</span></li>
+            <li><span>Competition &amp; oral-presentation judging panels</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         RELEVANT COURSEWORK — grouped by discipline.
+         Course codes/titles below are placeholder examples; replace with
+         your actual transcript entries.
+    ======================================================================== -->
+    <section class="section" id="coursework">
+      <div class="section-head">
+        <h2>Relevant coursework</h2>
+        <span class="index">06 / 10</span>
+      </div>
+      <div class="coursework-grid">
+        <div>
+          <h3>AERODYNAMICS &amp; PROPULSION</h3>
+          <ul>
+            <li><span class="course-code">[AE 3020]</span>Aerodynamics I</li>
+            <li><span class="course-code">[AE 4020]</span>Aerodynamics II</li>
+            <li><span class="course-code">[AE 3120]</span>Propulsion Systems</li>
+          </ul>
+        </div>
+        <div>
+          <h3>STRUCTURES &amp; MATERIALS</h3>
+          <ul>
+            <li><span class="course-code">[AE 3220]</span>Aerospace Structures</li>
+            <li><span class="course-code">[AE 4220]</span>Structural Analysis &amp; FEA</li>
+            <li><span class="course-code">[AE 3310]</span>Composite Materials</li>
+          </ul>
+        </div>
+        <div>
+          <h3>SYSTEMS, DESIGN &amp; CONTROLS</h3>
+          <ul>
+            <li><span class="course-code">[AE 4400]</span>Aircraft Design</li>
+            <li><span class="course-code">[AE 3600]</span>Flight Dynamics &amp; Controls</li>
+            <li><span class="course-code">[AE 5410]</span>Flight Vehicle Systems Design (Graduate)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CAREER TRAJECTORY — timeline (a genuine sequence)
+    ======================================================================== -->
+    <section class="section" id="trajectory">
+      <div class="section-head">
+        <h2>Trajectory</h2>
+        <span class="index">07 / 10</span>
+      </div>
+      <div class="trajectory-rail">
+
+        <div class="trajectory-item">
+          <div class="t-year">2026 — Present</div>
+          <h3>M.S. Aerospace Engineering — Chief Engineer, WashU DBF</h3>
+          <div class="t-org">Washington University in St. Louis</div>
+          <p>Final technical authority across aerodynamics, structures and payload systems; led the team's first entry into SAE Aero Design alongside our ongoing AIAA DBF program.</p>
+        </div>
+
+        <div class="trajectory-item">
+          <div class="t-year">2025 — 2026</div>
+          <h3>Aerodynamics & Payload Lead Engineer, WashU DBF</h3>
+          <div class="t-org">Washington University in St. Louis</div>
+          <p>Owned XFLR5 and CFD analysis for the DBF aircraft, plus the wind tunnel campaign that validated both against test data.</p>
+        </div>
+
+        <div class="trajectory-item">
+          <div class="t-year">2023 — 2025</div>
+          <h3>Structures Engineer, WashU DBF</h3>
+          <div class="t-org">Washington University in St. Louis</div>
+          <p>Designed payload mechanisms and ran FEA; contributed to early structural work on the team's carbon-fiber build initiative.</p>
+        </div>
+
+        <div class="trajectory-item">
+          <div class="t-year">2023 — 2027</div>
+          <h3>B.S. Mechanical Engineering</h3>
+          <div class="t-org">Washington University in St. Louis</div>
+          <p>Joined WashU DBF in first year; senior capstone in composite structural design.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         INTERNSHIPS — a separate chronological rail from the WashU DBF
+         trajectory above, since these are industry roles rather than the
+         student design team. Each entry calls out one concrete technical
+         challenge that was solved during that role.
+    ======================================================================== -->
+    <section class="section" id="internships">
+      <div class="section-head">
+        <h2>Internship/Research experience</h2>
+        <span class="index">08 / 10</span>
+      </div>
+      <div class="trajectory-rail">
+
+        <div class="trajectory-item">
+          <div class="t-year">Summer 2026</div>
+          <h3>Design Mechanical Engineer</h3>
+          <div class="t-org">Salas O'Brien</div>
+          <p>Took on three engineering design projects for industrial clients, routing conveyor belt systems through existing facilities and producing demolition plans for the equipment and structure they replaced.</p>
+          <p><strong>Technical challenge solved:</strong> Each site's conveyor path had to route around existing structural columns, utilities, and clearance envelopes without shutting down the surrounding production line, so I sequenced the demolition and new-routing plans so the facility could stay partially operational through the changeover.</p>
+        </div>
+
+        <div class="trajectory-item">
+          <div class="t-year">Summer 2025</div>
+          <h3>Mechanical Engineer</h3>
+          <div class="t-org">Procter &amp; Gamble</div>
+          <p>Assisted with designing piping for an assembly line, focused on improving line efficiency in an active production environment.</p>
+          <p><strong>Technical challenge solved:</strong> The existing piping routing created a bottleneck limiting line throughput; I helped redesign the routing to remove that constraint, contributing to a 2% increase in line productivity.</p>
+        </div>
+
+        <div class="trajectory-item">
+          <div class="t-year">Summer 2024</div>
+          <h3>Lab Assistant</h3>
+          <div class="t-org">[Lab / Research Group Name]</div>
+          <p>Supported day-to-day lab operations and was responsible for the written procedures technicians followed to run experiments.</p>
+          <p><strong>Technical challenge solved:</strong> Existing protocols carried redundant manual steps left over from older equipment that no longer matched how the lab actually operated; I rewrote the protocols to cut those steps, reducing time per procedure and standardizing the process across the team.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CREDENTIALS
+    ======================================================================== -->
+    <section class="section" id="credentials">
+      <div class="section-head">
+        <h2>Credentials</h2>
+        <span class="index">09 / 10</span>
+      </div>
+      <div class="credentials-grid">
+        <div>
+          <h3>EDUCATION</h3>
+          <ul>
+            <li>M.S., Aerospace Engineering (in progress)<span class="meta">Washington University in St. Louis, expected December 2027</span></li>
+            <li>B.S., Mechanical Engineering<span class="meta">Washington University in St. Louis, expected May 2027</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>AWARDS &amp; HONORS</h3>
+          <ul>
+            <li>Stan Powell Award<span class="meta">AIAA DBF, 2026</span></li>
+            <li>Dean's List<span class="meta">WashU, 2023-2026</span></li>
+            <li>32nd<span class="meta">AIAA DBF, 2024</span></li>
+            <li>19th<span class="meta">AIAA DBF, 2023</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>PUBLICATIONS &amp; PRESENTATIONS</h3>
+          <ul>
+            <li>Design Report (co-author)<span class="meta">AIAA, 2026</span></li>
+            <li>Design Report (co-author)<span class="meta">AIAA, 2025</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         INSPIRATION — favorite aircraft & spacecraft, and the specific
+         design constraint each one solved. Photos are placeholders — see
+         the CSS comment above ".aircraft-grid" for how to wire up real
+         images (they use the same lightbox as the project galleries).
+    ======================================================================== -->
+    <section class="section" id="inspiration">
+      <div class="section-head">
+        <h2>My Favorite Aircraft</h2>
+        <span class="index">10 / 10</span>
+      </div>
+      <p style="margin-bottom: 40px;">
+        Six vehicles that inspired how I think
+        about design trades and innovation.
+      <div class="aircraft-grid">
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/space-shuttle-orbiter.jpg" data-lightbox-caption="Space Shuttle Orbiter">
+            <img src="images/inspiration/space-shuttle-orbiter.jpg" alt="Space Shuttle Orbiter">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">Space Shuttle Orbiter</div>
+            <div class="aircraft-role">Spacecraft</div>
+            <p><strong>Why it inspires me:</strong> One airframe had to fly two completely different missions, a spacecraft on the way up and an unpowered glider on the way down, with zero margin to redo the landing.</p>
+            <p><strong>Design constraint it solved:</strong> Surviving reentry heating without power, using a reusable silica-tile thermal protection system instead of a one-time ablative coating.</p>
+          </div>
+        </div>
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/sr-71-blackbird.jpg" data-lightbox-caption="Lockheed SR-71 Blackbird">
+            <img src="images/inspiration/sr-71-blackbird.jpg" alt="Lockheed SR-71 Blackbird">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">Lockheed SR-71 Blackbird</div>
+            <div class="aircraft-role">Reconnaissance aircraft</div>
+            <p><strong>Why it inspires me:</strong> A jet that leaked fuel on the ground on purpose and only sealed itself once heat expanded the airframe in flight: every subsystem was designed to accept its environment instead of fighting it.</p>
+            <p><strong>Design constraint it solved:</strong> Thermal expansion at sustained Mach 3+ cruise, solved with corrugated titanium skin panels that could expand inches without buckling.</p>
+          </div>
+        </div>
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/concorde.jpg" data-lightbox-caption="Concorde">
+            <img src="images/inspiration/concorde.jpg" alt="Concorde">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">Concorde</div>
+            <div class="aircraft-role">Supersonic airliner</div>
+            <p><strong>Why it inspires me:</strong> A commercial aircraft that treated the low-speed/high-speed handling conflict as a shape problem to design away, not a power problem to fly through.</p>
+            <p><strong>Design constraint it solved:</strong> Stable handling across both takeoff speeds and supersonic cruise in one fixed wing, solved with the ogee delta planform generating controlled vortex lift at low speed with no separate flaps or slats.</p>
+          </div>
+        </div>
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/f-16.jpg" data-lightbox-caption="F-16 Fighting Falcon">
+            <img src="images/inspiration/f-16.jpg" alt="F-16 Fighting Falcon">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">F-16 Fighting Falcon</div>
+            <div class="aircraft-role">Fighter jet</div>
+            <p><strong>Why it inspires me:</strong> The first fighter designed to be aerodynamically unstable on purpose: betting the whole program on a flight computer flying what a pilot physically couldn't.</p>
+            <p><strong>Design constraint it solved:</strong> The maneuverability-vs-stability trade, solved with relaxed static stability plus quadruple-redundant fly-by-wire, moving the stability margin from the airframe into the control law.</p>
+          </div>
+        </div>
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/falcon9.jpg" data-lightbox-caption="SpaceX Falcon 9">
+            <img src="images/inspiration/falcon9.jpg" alt="SpaceX Falcon 9">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">SpaceX Falcon 9</div>
+            <div class="aircraft-role">Orbital-class rocket</div>
+            <p><strong>Why it inspires me:</strong> A booster that flies its hardest, most precision-critical maneuver after its primary job is already done, purely so it can fly again.</p>
+            <p><strong>Design constraint it solved:</strong> Reusing an orbital-class first stage, solved with propulsive landing: grid fins for aerodynamic control at reentry velocity and deep-throttling engines that can hover the stage down to near-zero velocity.</p>
+          </div>
+        </div>
+
+        <div class="aircraft-card">
+          <button class="aircraft-photo" type="button" data-lightbox-src="images/inspiration/x-15.jpg" data-lightbox-caption="North American X-15">
+            <img src="images/inspiration/x-15.jpg" alt="North American X-15">
+          </button>
+          <div class="aircraft-info">
+            <div class="aircraft-name">North American X-15</div>
+            <div class="aircraft-role">Hypersonic research aircraft</div>
+            <p><strong>Why it inspires me:</strong> A research vehicle built with the explicit expectation that it would fly past the edge of what existing materials and data could predict, and still bring the pilot home.</p>
+            <p><strong>Design constraint it solved:</strong> Aerodynamic heating and attitude control at the edge of the atmosphere, solved with an Inconel X nickel-alloy skin and reaction control thrusters for the altitudes where control surfaces had no air to bite into.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CONTACT
+    ======================================================================== -->
+    <section class="section" id="contact">
+      <div class="section-head">
+        <h2>Get in touch</h2>
+      </div>
+      <div class="contact-panel">
+        <p>
+          I'm looking for aerospace engineering internships and entry-level
+          roles in structures, propulsion or systems integration, and I'm
+          always happy to talk about personal projects, documentation, or design
+          team leadership.
+        </p>
+        <ul class="contact-list">
+          <li><a href="mailto:samueljherrera@att.net">Email <span class="arrow">→</span></a></li>
+          <li><a href="https://www.linkedin.com/in/sam-herrera-b4a1652b3" target="_blank" rel="noopener">LinkedIn <span class="arrow">→</span></a></li>
+          <li><a href="resume.pdf">Download resume (PDF) <span class="arrow">→</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox overlay for project gallery photos -->
+  <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photo viewer">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
+  <footer>
+    <span>© <span id="year"></span> Samuel Herrera. All rights reserved.</span>
+    <span>Built with plain HTML, CSS &amp; JS.</span>
+  </footer>
+
+  <script>
+    /* ========================================================================
+       BEHAVIOR
+       Kept intentionally small: a boot/readiness sequence, a live mission-
+       elapsed-time clock, and a mobile nav toggle. No frameworks required —
+       this file works by simply opening it in a browser.
+    ======================================================================== */
+
+    // ---- 1. Readiness-poll boot sequence (single orchestrated moment) ----
+    (function bootSequence() {
+      var overlay = document.getElementById('boot-overlay');
+      var items = document.querySelectorAll('#boot-list li');
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        overlay.classList.add('hidden');
+        return;
+      }
+
+      items.forEach(function (item, i) {
+        setTimeout(function () {
+          var status = item.getAttribute('data-status');
+          item.querySelector('.status').textContent = status;
+          if (status === 'GO') item.classList.add('go');
+          item.classList.add('show');
+        }, i * 260);
+      });
+
+      // Hide the overlay shortly after the final "GO" appears.
+      setTimeout(function () {
+        overlay.classList.add('hidden');
+      }, items.length * 260 + 500);
+    })();
+
+    // ---- 2. "Time on team" clock ----
+    // Replace this date with when you actually joined your design team
+    // (or started your degree, if you'd rather measure from there).
+    var JOURNEY_START_DATE = new Date('2023-08-01T00:00:00');
+
+    function updateJourneyClock() {
+      var now = new Date();
+      var diffMs = now - JOURNEY_START_DATE;
+      var totalSeconds = Math.floor(diffMs / 1000);
+
+      var days = Math.floor(totalSeconds / 86400);
+      var hours = Math.floor((totalSeconds % 86400) / 3600);
+      var minutes = Math.floor((totalSeconds % 3600) / 60);
+      var seconds = totalSeconds % 60;
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      var display = String(days).padStart(4, '0') + 'd ' +
+                     pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+
+      var el = document.getElementById('met-clock');
+      if (el) el.textContent = display;
+    }
+    document.getElementById('met-start-year').textContent = JOURNEY_START_DATE.getFullYear();
+    updateJourneyClock();
+    setInterval(updateJourneyClock, 1000);
+
+    // ---- 3. Mobile nav toggle ----
+    var navToggle = document.getElementById('nav-toggle');
+    var navLinks = document.getElementById('nav-links');
+    navToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Close the mobile menu after a link is chosen.
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ---- 4. Footer year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- 5. Project gallery lightbox ----
+    // Opens any [data-lightbox-src] gallery button full-size in an overlay.
+    (function galleryLightbox() {
+      var overlay = document.getElementById('lightbox');
+      var img = document.getElementById('lightbox-img');
+      var caption = document.getElementById('lightbox-caption');
+      var closeBtn = document.getElementById('lightbox-close');
+      var lastFocused = null;
+
+      function open(src, alt, captionText) {
+        lastFocused = document.activeElement;
+        img.src = src;
+        img.alt = alt || '';
+        caption.textContent = captionText || '';
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        closeBtn.focus();
+      }
+
+      function close() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        img.src = '';
+        if (lastFocused) lastFocused.focus();
+      }
+
+      document.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-lightbox-src]');
+        if (trigger) {
+          open(
+            trigger.getAttribute('data-lightbox-src'),
+            trigger.getAttribute('data-lightbox-alt') || (trigger.querySelector('img') && trigger.querySelector('img').alt),
+            trigger.getAttribute('data-lightbox-caption')
+          );
+        }
+      });
+
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      });
+    })();
+
+    // ---- 6. Project photo slideshows ----
+    // Cycles the .slide buttons inside each .project-slideshow via its
+    // prev/next arrows and dots. Clicking a slide itself still opens the
+    // lightbox (handled by the delegated [data-lightbox-src] listener above).
+    document.querySelectorAll('.project-slideshow').forEach(function (ss) {
+      var slides = Array.prototype.slice.call(ss.querySelectorAll('.slide'));
+      if (slides.length < 2) return;
+      var dots = Array.prototype.slice.call(ss.querySelectorAll('.slideshow-dots button'));
+      var prevBtn = ss.querySelector('.slideshow-arrow.prev');
+      var nextBtn = ss.querySelector('.slideshow-arrow.next');
+      var index = Math.max(0, slides.findIndex(function (s) { return s.classList.contains('active'); }));
+
+      function show(newIndex) {
+        index = (newIndex + slides.length) % slides.length;
+        slides.forEach(function (s, i) {
+          s.classList.toggle('active', i === index);
+          if (i !== index) {
+            var vid = s.querySelector('video');
+            if (vid) vid.pause();
+          }
+        });
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function () { show(index - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { show(index + 1); });
+      dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); }); });
+    });
+  </script>
+
+</body>
+</html>
