@@ -1271,8 +1271,114 @@
       <details class="program-file" open>
         <summary>
           <div>
-            <span class="file-id">PRJ — CF BUILD</span>
-            <h3>Carbon-fiber aircraft build initiative</h3>
+            <span class="file-id">PRJ — DBF 2026–27 SENSOR &amp; CONTAINER</span>
+            <h3>Towed sensor &amp; shipping container: DBF 2026–27</h3>
+            <div class="file-role">Chief Engineer — Fall 2026, in progress</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <div class="project-breakdown">
+            <div class="project-field">
+              <h4>Problem &amp; Constraints</h4>
+              <p>The 2026–27 AIAA DBF mission is a surveillance UAV. The aircraft has to carry a sensor inside a protective shipping container, then deploy, tow, operate, and recover that sensor in flight on a tow line at least 1.5× the wingspan. On the ground mission, the container has to survive repeated drops from a test rig. Sensor weight multiplies directly into the score, so the sensor has to be heavy and still fly stably at the end of a cable, and the container has to protect it while adding as little weight as possible.</p>
+            </div>
+            <div class="project-field">
+              <h4>My Exact Role</h4>
+              <p>As Chief Engineer, I lead the technical design of the sensor and shipping container: running the fin-configuration trade, the sensor CFD, and the container design, and making the final configuration calls for the team’s proposal.</p>
+            </div>
+            <div class="project-field">
+              <h4>Technical Execution</h4>
+              <ul class="contributions">
+                <li>3D-printed sensor prototypes and wind-tunnel tested four fin arrangements: cruciform, three-fin-up, three-fin-down, and dihedral</li>
+                <li>Ran SolidWorks Flow Simulation on the sensor body to check drag, lift, and the yaw, pitch, and roll moments it puts on the tow line</li>
+                <li>Specified a 6061 aluminum sensor body with cruciform aluminum fins, a 2S LiPo, and an A-Star 32U4 Micro controller driving the mission’s light modes</li>
+                <li>Designed the shipping container: a machined 6061 aluminum casing with EPDM rubber and cross-linked polyethylene foam inner layers to absorb drop-test shock, with the rigging tied into the rubber layer</li>
+                <li>Paired the sensor with a twin-cable winch that deploys to 9 ft from the belly, keeping the sensor’s CG in line with the aircraft’s CG</li>
+              </ul>
+            </div>
+            <div class="project-field">
+              <h4>Verification &amp; Validation</h4>
+              <p>Each fin prototype was held by a servo at a 5° initial deflection in the tunnel and then released. Stability was measured from the response’s settling time and RMS angular deviation. The cruciform layout settled fastest (5.96 s) with the lowest RMS deviation (0.717°), so it was selected. The container drop test and a winch-and-sensor prototype flight are gating tests: neither system goes on the competition airframe until it passes.</p>
+            </div>
+            <div class="project-field">
+              <h4>Failure Analysis &amp; Learnings</h4>
+              <p>The dihedral fin layout, which looked reasonable on paper, overshot nearly 3° and kept oscillating for about 6 seconds after release. A towed body behaves very differently from a free-flying one, which is why the fin choice came from measured tunnel data rather than intuition.</p>
+            </div>
+          </div>
+          <div class="project-slideshow" aria-label="Project photo slideshow">
+            <div class="slideshow-viewport">
+              <div class="slideshow-slides">
+                <button class="slide active" type="button" data-lightbox-src="images/DBF_2026_27_Shipping_Container_and_Sensor/Screenshot 2026-11-08 193522.png" data-lightbox-caption="CAD of the shipping container with the finned sensor stowed inside">
+                  <img src="images/DBF_2026_27_Shipping_Container_and_Sensor/Screenshot 2026-11-08 193522.png" alt="CAD rendering of the shipping container with the sensor stowed inside">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_printed.jpg" data-lightbox-caption="3D-printed sensor prototype with cruciform fins">
+                  <img src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_printed.jpg" alt="Black 3D-printed sensor prototype with cruciform fins standing on a workbench">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_graph.png" data-lightbox-caption="Wind-tunnel release response for four fin configurations: cruciform settled fastest with the lowest RMS deviation">
+                  <img src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_graph.png" alt="Plot of angular deviation versus time for cruciform, three-fin-up, three-fin-down and dihedral sensor fin configurations">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_cfd.png" data-lightbox-caption="SolidWorks Flow Simulation of the sensor: velocity cut plot with converged yaw, pitch and roll moment goals">
+                  <img src="images/DBF_2026_27_Shipping_Container_and_Sensor/sensor_cfd.png" alt="SolidWorks Flow Simulation velocity cut plot around the sensor body with yaw, pitch and roll torque convergence plots">
+                </button>
+              </div>
+              <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
+              <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
+            </div>
+            <div class="slideshow-dots" aria-label="Slide navigation">
+              <button class="active" type="button" aria-label="Photo 1"></button>
+              <button type="button" aria-label="Photo 2"></button>
+              <button type="button" aria-label="Photo 3"></button>
+              <button type="button" aria-label="Photo 4"></button>
+            </div>
+          </div>
+          <div class="file-tags"><span>PAY</span><span>WT</span><span>CFD</span><span>EMBED</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — DBF 2026–27 PROPOSAL</span>
+            <h3>AIAA DBF 2026–27 competition proposal</h3>
+            <div class="file-role">Chief Engineer — Fall 2026</div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="file-body">
+          <p>
+            The team’s proposal for the 2026–27 AIAA Design/Build/Fly
+            competition, our first as a team under my technical leadership. It
+            presents Rocky, a high-wing, single-tractor monoplane with a
+            5.9 ft wingspan, a conventional tail, and tricycle gear, sized to
+            stow the sensor, shipping container, and winch internally.
+          </p>
+          <ul class="contributions">
+            <li>Sized the aircraft with an in-house MATLAB scoring optimizer, constrained to the feasible region of a thrust-to-weight and stall-speed constraint diagram and benchmarked against historical top-three scores</li>
+            <li>Ran a ±20% sensitivity study on every design variable; sensor weight drove total score hardest, moving it 8–15%</li>
+            <li>Validated the balanced objective weighting against speed-maximized and payload-maximized alternatives</li>
+            <li>Ran weighted trade studies on six configuration decisions, re-scored with ±15% weighting perturbations to confirm each pick held</li>
+            <li>Selected a modified Drela GW-27 airfoil in XFLR5 and an 8.06 ft² wing with 4° dihedral and winglets</li>
+            <li>Laid out a manufacturing plan built around a 2-ply carbon-fiber fuselage, drawing on the composites process developed in the summer plane initiative, plus a test plan with gating tests for the new subsystems</li>
+          </ul>
+          <div class="pdf-embeds">
+            <div class="pdf-embed">
+              <div class="pdf-embed-label">
+                <span>AIAA DBF 2026–27 PROPOSAL (PDF)</span>
+                <a href="reports/2027DBF_Washington_University_in_St__Louis_PROPOSAL.pdf" target="_blank" rel="noopener">Open in new tab &rarr;</a>
+              </div>
+              <iframe src="reports/2027DBF_Washington_University_in_St__Louis_PROPOSAL.pdf" title="AIAA DBF 2026–27 competition proposal"></iframe>
+            </div>
+          </div>
+          <div class="file-tags"><span>DOC</span><span>AERO</span><span>OPT</span></div>
+        </div>
+      </details>
+
+      <details class="program-file">
+        <summary>
+          <div>
+            <span class="file-id">PRJ — SUMMER PLANE</span>
+            <h3>Summer plane initiative: carbon-fiber fuselage aircraft</h3>
             <div class="file-role">Initiative Lead — Summer 2026</div>
           </div>
           <span class="chevron">+</span>
@@ -1281,23 +1387,25 @@
           <div class="project-breakdown">
             <div class="project-field">
               <h4>Problem &amp; Constraints</h4>
-              <p>Moving off balsa-and-foam onto a carbon-fiber composite airframe meant building a mold-making and wet-layup process, tooling, and quality-control method from zero, on a volunteer team with no prior institutional composites experience, inside a single summer.</p>
+              <p>Competition season leaves no room to learn a new manufacturing process from scratch. To move the team off balsa-and-foam onto a carbon-fiber composite fuselage, I started an off-season summer plane: a full aircraft designed, built, and flown between competition cycles, so the mold-making and layup process, tooling, and quality-control method could be proven before the 2026–27 build began. We did it with a volunteer team, no prior institutional composites experience, and a single summer.</p>
             </div>
             <div class="project-field">
               <h4>My Exact Role</h4>
-              <p>I initiated and led the effort as Initiative Lead, defining the layup process and training the students who would carry it forward after I graduate.</p>
+              <p>I started and led the initiative. I defined the layup process, ran the build, and trained the students who will carry it forward after I graduate.</p>
             </div>
             <div class="project-field">
               <h4>Technical Execution</h4>
               <ul class="contributions">
-                <li>Developed the mold-making and wet-layup process for a carbon-fiber wing and fuselage</li>
-                <li>Ran coupon testing to characterize layup strength before committing to a full airframe</li>
-                <li>Documented the process into a build guide so the initiative outlives my time on the team</li>
+                <li>Designed and 3D-printed segmented fuselage and nose-cone molds, and laser-cut plywood formers and bulkheads for the tooling</li>
+                <li>Developed the mold-prep and layup process for the carbon-fiber fuselage shells and nose sections</li>
+                <li>Ran coupon testing to characterize layup strength before committing to full-size parts</li>
+                <li>Assembled the full aircraft, with motor, propeller, and landing gear, and took it to flight test</li>
+                <li>Documented the process in a build guide so the initiative outlives my time on the team</li>
               </ul>
             </div>
             <div class="project-field">
               <h4>Verification &amp; Validation</h4>
-              <p>Ran tensile and flexure coupon tests to characterize actual layup strength against datasheet fiber properties before committing resources to a full-scale wing and fuselage.</p>
+              <p>Ran tensile and flexure coupon tests to check actual layup strength against datasheet fiber properties before building full-size parts, then validated the finished airframe in a successful test flight. The process now feeds directly into the 2026–27 competition aircraft’s carbon-fiber fuselage.</p>
             </div>
             <div class="project-field">
               <h4>Failure Analysis &amp; Learnings</h4>
@@ -1350,7 +1458,13 @@
               <button type="button" aria-label="Photo 9"></button>
             </div>
           </div>
-          <div class="file-tags"><span>COMP</span><span>STR</span></div>
+          <div class="video-embeds">
+            <div class="video-embed">
+              <div class="video-embed-label">TEST FLIGHT — CARBON-FIBER FUSELAGE AIRCRAFT</div>
+              <video src="videos/cf-build/test-flight.mp4" controls playsinline preload="metadata"></video>
+            </div>
+          </div>
+          <div class="file-tags"><span>COMP</span><span>STR</span><span>FLT</span></div>
         </div>
       </details>
 
@@ -1624,7 +1738,7 @@
           <div class="project-breakdown">
             <div class="project-field">
               <h4>Problem &amp; Constraints</h4>
-              <p>Several structural components, the landing gear, horizontal stabilizer spar, and vertical stabilizer plate, had to survive worst-case flight and landing loads with margin, but conservative over-design would add weight the mission budget couldn’t afford.</p>
+              <p>Several structural components, the landing gear, horizontal stabilizer spar, vertical stabilizer plate, and the wing mount that fastens the wings to the fuselage, had to survive worst-case flight and landing loads with margin, but conservative over-design would add weight the mission budget couldn’t afford.</p>
             </div>
             <div class="project-field">
               <h4>My Exact Role</h4>
@@ -1634,6 +1748,7 @@
               <h4>Technical Execution</h4>
               <ul class="contributions">
                 <li>Built FEA models of the landing gear, horizontal stabilizer spar, and vertical stabilizer plate under worst-case flight and landing loads</li>
+                <li>Iterated the wing mount between box-section and channel-section designs under remote wing-tube loads, cutting peak von Mises stress from 152 MPa to 67 MPa</li>
                 <li>Identified and reinforced stress concentrations at load-bearing joints and mounts</li>
                 <li>Confirmed positive margins of safety before releasing each design for manufacturing</li>
               </ul>
@@ -1671,6 +1786,24 @@
                 <button class="slide" type="button" data-lightbox-src="images/structures-fea/vstab-stress.png" data-lightbox-caption="Vertical stabilizer plate FEA von Mises stress under worst-case flight load">
                   <img src="images/structures-fea/vstab-stress.png" alt="FEA von Mises stress contour plot of the vertical stabilizer plate">
                 </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/Screenshot 2026-11-03 222108.png" data-lightbox-caption="CAD of the channel-section wing mount that fastens the wing spar tubes to the fuselage">
+                  <img src="images/structures-fea/Screenshot 2026-11-03 222108.png" alt="CAD model of the channel-section wing mount with four wing-tube sockets">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/Screenshot 2026-11-04 222115.png" data-lightbox-caption="Box-section wing mount iteration: von Mises stress under remote wing loads, full-range scale">
+                  <img src="images/structures-fea/Screenshot 2026-11-04 222115.png" alt="FEA von Mises stress plot of a box-section wing mount with four wing-tube sockets under remote loads">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/Screenshot 2026-11-04 222752.png" data-lightbox-caption="Same study with the stress scale clipped at 50 MPa, showing concentrations where the sockets meet the box section">
+                  <img src="images/structures-fea/Screenshot 2026-11-04 222752.png" alt="FEA von Mises stress plot with clipped scale highlighting stress concentrations at the socket joints">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/Screenshot 2026-11-04 223533.png" data-lightbox-caption="Normal strain (EPSZ) distribution across the box-section wing mount">
+                  <img src="images/structures-fea/Screenshot 2026-11-04 223533.png" alt="FEA normal strain contour plot of the box-section wing mount">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/Screenshot 2026-11-04 225505.png" data-lightbox-caption="Revised box-section wing mount: peak von Mises stress reduced from 152 MPa to 140 MPa">
+                  <img src="images/structures-fea/Screenshot 2026-11-04 225505.png" alt="FEA von Mises stress plot of the revised box-section wing mount">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/structures-fea/FEA.png" data-lightbox-caption="Channel-section wing mount: peak von Mises stress of 67 MPa under the same remote wing loads">
+                  <img src="images/structures-fea/FEA.png" alt="FEA von Mises stress plot of the channel-section wing mount with four tube sockets">
+                </button>
               </div>
               <button class="slideshow-arrow prev" type="button" aria-label="Previous photo">&larr;</button>
               <button class="slideshow-arrow next" type="button" aria-label="Next photo">&rarr;</button>
@@ -1683,6 +1816,12 @@
               <button type="button" aria-label="Photo 5"></button>
               <button type="button" aria-label="Photo 6"></button>
               <button type="button" aria-label="Photo 7"></button>
+              <button type="button" aria-label="Photo 8"></button>
+              <button type="button" aria-label="Photo 9"></button>
+              <button type="button" aria-label="Photo 10"></button>
+              <button type="button" aria-label="Photo 11"></button>
+              <button type="button" aria-label="Photo 12"></button>
+              <button type="button" aria-label="Photo 13"></button>
             </div>
           </div>
           <div class="file-tags"><span>STR</span></div>
@@ -1803,7 +1942,10 @@
           <div class="project-slideshow" aria-label="Project photo slideshow">
             <div class="slideshow-viewport">
               <div class="slideshow-slides">
-                <button class="slide active" type="button" data-lightbox-src="images/xflr5/airfoil-comparison.png" data-lightbox-caption="Candidate airfoil polar comparison (Cd/Cl, Cl/alpha, Cm/alpha, Cl/Cd) used for down-select">
+                <button class="slide active" type="button" data-lightbox-src="images/xflr5/all_re200_analysis_graphs.png" data-lightbox-caption="2026–27 airfoil down-select: Cl/Cd, Cl, Cm and Cd polars for 12 candidate airfoils at Re = 200,000, which led to the Drela GW-27">
+                  <img src="images/xflr5/all_re200_analysis_graphs.png" alt="XFLR5 polar comparison of twelve candidate airfoils at Reynolds number 200,000">
+                </button>
+                <button class="slide" type="button" data-lightbox-src="images/xflr5/airfoil-comparison.png" data-lightbox-caption="Candidate airfoil polar comparison (Cd/Cl, Cl/alpha, Cm/alpha, Cl/Cd) used for down-select">
                   <img src="images/xflr5/airfoil-comparison.png" alt="XFLR5 airfoil polar comparison across Cd/Cl, Cl/alpha, Cm/alpha and Cl/Cd">
                 </button>
                 <button class="slide" type="button" data-lightbox-src="images/xflr5/aero-graphs.png" data-lightbox-caption="Wing lift, drag and moment curves (Fz, CL, Cm, CD vs. alpha) from the XFLR5 sizing model">
@@ -1828,6 +1970,7 @@
               <button type="button" aria-label="Photo 3"></button>
               <button type="button" aria-label="Photo 4"></button>
               <button type="button" aria-label="Photo 5"></button>
+              <button type="button" aria-label="Photo 6"></button>
             </div>
           </div>
           <div class="file-tags"><span>AERO</span></div>

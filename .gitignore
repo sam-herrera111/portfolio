@@ -1,1 +1,4 @@
 .claude/
+
+# Raw 4K source footage (>100 MB, GitHub rejects it); the site uses the compressed test-flight.mp4
+videos/cf-build/20261025_094652*.mp4
